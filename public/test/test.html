@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .select-box {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+        }
+    
+        .selected-option {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    
+        .selected-option div {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+    
+        .selected-option input[type="tel"] {
+            border: none;
+            outline: none;
+            width: 100%;
+        }
+    
+        .options {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1;
+        }
+    
+        .options.active {
+            display: block;
+        }
+    
+        .search-box {
+            width: 100%;
+            padding: 5px;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #ccc;
+        }
+    
+        ol {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+    
+        ol li {
+            padding: 5px;
+            cursor: pointer;
+        }
+    
+        ol li:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+  
+    
+
+   
+    
+    <div class="select-box">
+        <div class="selected-option">
+            <div style="background-color:white;">
+                <span class="iconify" data-icon="flag:gb-4x3"></span>
+            </div>
+            <input type="tel" name="tel" onkeypress="return validateMobile(event)" placeholder="Phone Number">
+        </div>
+    
+        <div class="options">
+            <input type="text" class="search-box" placeholder="Search Country Name">
+            <ol>
+                <!-- List of countries with flags -->
+                <!-- Example: -->
+                <li data-icon="flag:us-4x3">United States</li>
+                <li data-icon="flag:de-4x3">Germany</li>
+                <li data-icon="flag:fr-4x3">France</li>
+                <!-- Add more countries as needed -->
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        // Validate mobile number input
+        function validateMobile(event) {
+            var key = event.key;
+            // Allow digits (0-9) and the plus sign (+)
+            if (/[0-9+]/.test(key)) {
+                return true;
+            } else {
+                alert("Please enter numbers only.");
+                return false;
+            }
+        }
+    
+        // Toggle the display of the options list
+        document.querySelector('.selected-option').addEventListener('click', function() {
+            document.querySelector('.options').classList.toggle('active');
+        });
+    
+        // Filter countries based on the search input
+        document.querySelector('.search-box').addEventListener('input', function() {
+            var filter = this.value.toLowerCase();
+            var listItems = document.querySelectorAll('ol li');
+            listItems.forEach(function(item) {
+                if (item.textContent.toLowerCase().includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    
+        // Handle country selection
+        document.querySelectorAll('ol li').forEach(function(item) {
+            item.addEventListener('click', function() {
+                var icon = this.getAttribute('data-icon');
+                document.querySelector('.iconify').setAttribute('data-icon', icon);
+                document.querySelector('.options').classList.remove('active');
+            });
+        });
+    </script>
+    
+
+
+
+</body>
+</html>
