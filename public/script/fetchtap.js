@@ -33,7 +33,7 @@ function getQueryParameter(parameterName) {
         if (a !== "999") {
            checkForUpdates();
           }
-        var filepath = '/Z2UA.pdf';
+        var filepath = '/MoM of Monthly BoDs Meeting (SAMROC & SFSS) 23 Dec 2024.pdf';
   
           if (Number.isInteger(num) && num === 999) {
             // Execute this block of code if 'a' is an integer greater than zero
